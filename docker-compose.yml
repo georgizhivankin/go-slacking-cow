@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  cow:
+    image: golang:1.6.4-alpine
+    build: ./src    
+    volumes:
+    - ./src/:/go/src/github.com/georgizhivankin/go-slacking-cow
+    command: ./Dockerfile
+    links:
+    - mongo
+    networks:
+    - webstack
+    
+  mongo:
+    image: mongo:2
+    ports:
+    - 27017:27017
+    volumes:
+    - /mongo:/data/db
+    networks:
+    - webstack
+    
+networks:
+  webstack:
+    driver: bridge
