@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  cow:
+    image: golang:1.6.4-alpine
+    build: .
+    ports:
+    - 8010:8010
+    volumes:
+    - ./src/:/go/src/github.com/georgizhivankin/go-slacking-cow
+    links:
+    - mongo
+    networks:
+    - webstack
+    
+  mongo:
+    image: mongo:2
+    ports:
+    - 27017:27017
+    volumes:
+    - mongo:/data/db
+    networks:
+    - webstack
+    
+volumes:
+  mongo:
+    driver: local
+    
+networks:
+  webstack:
+    driver: bridge

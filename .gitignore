@@ -4,6 +4,7 @@
 *.so
 
 # Folders
+mongo
 _obj
 _test
 
