@@ -8,7 +8,7 @@ services:
     ports:
     - 8010:8010
     volumes:
-    - ./src/:/go/src/github.com/georgizhivankin/go-slacking-cow
+    - ./:/go/src/github.com/georgizhivankin/go-slacking-cow
     links:
     - mongo
     networks:

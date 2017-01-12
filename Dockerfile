@@ -16,4 +16,4 @@ WORKDIR $APP_DIR
 expose 8010
 
 # Now tell Docker what command to run when the container starts
-CMD go run main.go
+CMD go run ./src/main.go
