@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/georgizhivankin/go-slacking-cow/config"
 	"github.com/gorilla/mux"
 	"html"
 	"log"
@@ -22,6 +23,9 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Load config variables
+	configVariables := config.NewConfigVariables()
+	fmt.Println(configVariables.ApiKey)
 	fmt.Println("Rest API v1.0 - Mux Routers")
 	handleRequests()
 }
