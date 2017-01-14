@@ -4,10 +4,11 @@ services:
 
   cow:
     image: golang:1.6.4-alpine
-    build: ./src    
+    build: .
+    ports:
+    - 8010:8010
     volumes:
-    - ./src/:/go/src/github.com/georgizhivankin/go-slacking-cow
-    command: ./Dockerfile
+    - ./:/go/src/github.com/georgizhivankin/go-slacking-cow
     links:
     - mongo
     networks:
@@ -18,9 +19,13 @@ services:
     ports:
     - 27017:27017
     volumes:
-    - /mongo:/data/db
+    - mongo:/data/db
     networks:
     - webstack
+    
+volumes:
+  mongo:
+    driver: local
     
 networks:
   webstack:

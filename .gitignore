@@ -4,8 +4,10 @@
 *.so
 
 # Folders
+mongo
 _obj
 _test
+vendor
 
 # Architecture specific extensions/prefixes
 *.[568vq]
