@@ -1,5 +1,5 @@
-hash: e0cd5a4e9c8447b843aeb379ad09c284aeb62427c41ec6df9f26f4b64deaf0e6
-updated: 2017-01-13T12:29:27.1347225+01:00
+hash: d56754483fb5933c1a18aafb4372e1154682e6437d980ef275ccb9a8218ac040
+updated: 2017-01-24T15:47:30.9914332+01:00
 imports:
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
@@ -7,4 +7,8 @@ imports:
   version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
 - name: github.com/satori/go.uuid
   version: b061729afc07e77a8aa4fad0a2fd840958f1942a
+- name: gopkg.in/mgo.v2
+  version: 3f83fa5005286a7fe593b055f0d7771a7dce4655
+  subpackages:
+  - bson
 testImports: []
