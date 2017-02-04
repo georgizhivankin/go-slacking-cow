@@ -11,11 +11,17 @@ services:
     - ./:/go/src/github.com/georgizhivankin/go-slacking-cow
     links:
     - mongo
+    depends_on:
+    - mongo
     networks:
     - webstack
     
   mongo:
-    image: mongo:2
+    image: mongo:3
+    environment:
+    - DATABASE_DSN=mongo
+    - DATABASE_PORT=27017
+    - DATABASE_NAME=test
     ports:
     - 27017:27017
     volumes:

@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	log "github.com/Sirupsen/logrus"
 	"github.com/georgizhivankin/go-slacking-cow/config"
+	"github.com/georgizhivankin/go-slacking-cow/models"
+	"github.com/georgizhivankin/go-slacking-cow/repositories"
 	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 	"html"
-	"log"
 	"net/http"
 )
 
@@ -24,8 +27,17 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// Load config variables
-	configVariables := config.NewConfigVariables()
-	fmt.Println(configVariables.ApiKey)
-	fmt.Println("Rest API v1.0 - Mux Routers")
+	config, err := config.LoadEnv()
+	if err != nil {
+		log.Panic(err)
+	}
+	fmt.Printf("%s %s\n", config.AppName, config.AppVersion)
+	quoteModel := models.Quote{
+		Id:     bson.NewObjectId(),
+		Author: "Georgi Zhivankin",
+		Quote:  "This is one nice quote.",
+	}
+	savedQuote := repositories.SaveQuote(quoteModel)
+	fmt.Println(savedQuote)
 	handleRequests()
 }

@@ -1,4 +1,4 @@
-FROM golang
+FROM golang:latest
 
 # Set apps home directory.
 ENV APP_DIR /go/src/github.com/georgizhivankin/go-slacking-cow
