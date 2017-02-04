@@ -4,6 +4,7 @@
 *.so
 
 # Folders
+.glide
 mongo
 _obj
 _test

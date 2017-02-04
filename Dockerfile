@@ -6,6 +6,9 @@ ENV APP_DIR /go/src/github.com/georgizhivankin/go-slacking-cow
 # Creates the application directory
 RUN mkdir -p $APP_DIR
 
+# Install glide
+RUN curl https://glide.sh/get | sh
+
 # Add sources.
 # COPY . $APP_DIR
 
