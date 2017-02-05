@@ -14,7 +14,7 @@ func SaveQuote(quote models.Quote) models.Quote {
 	if err != nil {
 		log.Panic(err)
 	}
-	session, err := mgo.DialWithTimeout(fmt.Sprintf("%s:%s/%s", config.Database.DSN, config.Database.Port, config.Database.Name), 5)
+	session, err := mgo.DialWithTimeout(fmt.Sprintf("mongodb://%s:%s/%s", config.Database.DSN, config.Database.Port, config.Database.Name), 5)
 
 	// Exit with an error
 	if err != nil {
@@ -24,7 +24,7 @@ func SaveQuote(quote models.Quote) models.Quote {
 	fmt.Print("Connected")
 	defer session.Close()
 
-	session.DB("local").C("quotes").Insert(quote)
+	session.DB(config.Database.Name).C("quotes").Insert(quote)
 
 	return quote
 }

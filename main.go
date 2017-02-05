@@ -31,7 +31,7 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Printf("%s %s\n", config.AppName, config.AppVersion)
+	fmt.Printf("Welcome to %s %s\n", config.AppName, config.AppVersion)
 	quoteModel := models.Quote{
 		Id:     bson.NewObjectId(),
 		Author: "Georgi Zhivankin",
