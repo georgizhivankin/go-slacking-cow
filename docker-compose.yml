@@ -21,7 +21,7 @@ services:
     environment:
     - DATABASE_DSN=mongo
     - DATABASE_PORT=27017
-    - DATABASE_NAME=test
+    - DATABASE_NAME=local
     ports:
     - 27017:27017
     volumes:

@@ -17,7 +17,7 @@ type Specification struct {
 type Database struct {
 	DSN  string `envconfig:"DATABASE_DSN" default:"mongo"`
 	Port string `envconfig:"DATABASE_PORT" default:"27017"`
-	Name string `envconfig:"DATABASE_NAME" default:"local"`
+	Name string `envconfig:"DATABASE_NAME" default:"cow"`
 }
 
 type QuotesApi struct {

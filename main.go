@@ -38,6 +38,8 @@ func main() {
 		Quote:  "This is one nice quote.",
 	}
 	savedQuote := repositories.SaveQuote(quoteModel)
-	fmt.Println(savedQuote)
+	if savedQuote == true {
+		fmt.Println("Quote successfully saved to database")
+	}
 	handleRequests()
 }
