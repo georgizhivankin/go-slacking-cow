@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	log "github.com/Sirupsen/logrus"
 	"math/rand"
 	"strconv"
 	"time"
@@ -28,4 +29,20 @@ func GenerateRandomNumber(maxNumbers int) int {
 	}
 
 	return number
+}
+
+// Helper function to catch and log errors in their appropriate level through the Logrus package
+func CheckAndLogError(error interface{}, level string) {
+	if error != nil {
+		switch level {
+		case "warning":
+			log.Warning(error)
+		case "error":
+			log.Error(error)
+		case "fatal":
+			log.Fatal(error)
+		case "panic":
+			log.Panic(error)
+		}
+	}
 }

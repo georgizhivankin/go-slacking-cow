@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"fmt"
-	log "github.com/Sirupsen/logrus"
 	"github.com/georgizhivankin/go-slacking-cow/config"
+	"github.com/georgizhivankin/go-slacking-cow/helpers"
 	"github.com/georgizhivankin/go-slacking-cow/models"
 	"gopkg.in/mgo.v2"
 )
@@ -11,21 +11,16 @@ import (
 func SaveQuote(quote models.Quote) bool {
 	// Connect to Mongo
 	config, err := config.LoadEnv()
-	if err != nil {
-		log.Panic(err)
-	}
-	session, err := mgo.Dial(fmt.Sprintf("mongodb://%s:%s/%s", config.Database.DSN, config.Database.Port, config.Database.Name))
+	helpers.CheckAndLogError(err, "panic")
+	session, err := mgo.DialWithTimeout(fmt.Sprintf("%s:%s", config.Database.DSN, config.Database.Port), 3)
 
 	// Exit with an error
-	if err != nil {
-		log.Panic(err)
-	}
+	helpers.CheckAndLogError(err, "panic")
 	session.SetMode(mgo.Monotonic, true)
 	defer session.Close()
 
-	if err != nil {
-		log.Panic(err)
-	}
+	helpers.CheckAndLogError(err, "panic")
+
 	result := models.Quote{}
 
 	session.DB(config.Database.Name).C("quotes").Insert(quote)
