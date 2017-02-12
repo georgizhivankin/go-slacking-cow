@@ -35,7 +35,7 @@ func main() {
 		Author: "Georgi Zhivankin",
 		Quote:  "This is one nice quote.",
 	}
-	savedQuote = repositories.SaveQuote(quoteModel)
+	savedQuote := repositories.SaveQuote(quoteModel)
 	if savedQuote == true {
 		fmt.Println("Quote successfully saved into the database.")
 	}
