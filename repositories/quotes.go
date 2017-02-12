@@ -6,27 +6,41 @@ import (
 	"github.com/georgizhivankin/go-slacking-cow/helpers"
 	"github.com/georgizhivankin/go-slacking-cow/models"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
-func SaveQuote(quote models.Quote) bool {
+const collectionName string = "quotes"
+
+func GetSession() *mgo.Session {
 	// Connect to Mongo
 	config, err := config.LoadEnv()
 	helpers.CheckAndLogError(err, "panic")
-	session, err := mgo.DialWithTimeout(fmt.Sprintf("%s:%s", config.Database.DSN, config.Database.Port), 3)
-
-	// Exit with an error
+	session, err := mgo.Dial(fmt.Sprintf("%s:%s/%s", config.Database.DSN, config.Database.Port, config.Database.Name))
 	helpers.CheckAndLogError(err, "panic")
 	session.SetMode(mgo.Monotonic, true)
-	defer session.Close()
+	return session
+}
 
+func FindById(quoteId bson.ObjectId, collectionName string) models.Quote {
+	config, err := config.LoadEnv()
 	helpers.CheckAndLogError(err, "panic")
-
 	result := models.Quote{}
+	session := GetSession()
+	session.DB(config.Database.Name).C(collectionName).FindId(quoteId).One(&result)
 
-	session.DB(config.Database.Name).C("quotes").Insert(quote)
-	err = session.DB(config.Database.Name).C("quotes").FindId(quote.Id).One(&result)
+	return result
+}
 
-	if err != nil {
+func SaveQuote(quote models.Quote) bool {
+	config, err := config.LoadEnv()
+	helpers.CheckAndLogError(err, "panic")
+	session := GetSession()
+
+	err = session.DB(config.Database.Name).C(collectionName).Insert(quote)
+	helpers.CheckAndLogError(err, "panic")
+	result := FindById(quote.Id, collectionName)
+
+	if result.Quote == "" {
 		return false
 	}
 
