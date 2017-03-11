@@ -3,10 +3,10 @@ version: '3'
 services:
 
   cow:
-    image: golang:1.7-alpine
+    image: golang:1.8-alpine
     build: .
     ports:
-    - 8010:8010
+    - 8080:8080
     volumes:
     - ./:/go/src/github.com/georgizhivankin/go-slacking-cow
     links:
@@ -21,9 +21,9 @@ services:
     environment:
     - DATABASE_DSN=mongo
     - DATABASE_PORT=27017
-    - DATABASE_NAME=local
+    - DATABASE_NAME=cow
     ports:
-    - 27017:27017
+    - 27017
     volumes:
     - mongo:/data/db
     networks:
