@@ -7,7 +7,7 @@ import (
 // Quote struct represents a quote entity
 type Quote struct {
 	Id     bson.ObjectId `json:"id" bson:"_id,omitempty"`
-	Author string        `json:"author" bson:"author"`
-	Quote  string        `json:"quote" bson:"quote"`
-	Link   string        `json:"link" bson:"link"`
+	Author string        `json:"quoteAuthor" bson:"author"`
+	Quote  string        `json:"quoteText" bson:"quote"`
+	Link   string        `json:"quoteLink" bson:"link"`
 }

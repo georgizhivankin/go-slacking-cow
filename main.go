@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"github.com/georgizhivankin/go-slacking-cow/config"
 	"github.com/georgizhivankin/go-slacking-cow/helpers"
-	"github.com/georgizhivankin/go-slacking-cow/models"
+	"github.com/georgizhivankin/go-slacking-cow/quotes"
 	"github.com/georgizhivankin/go-slacking-cow/repositories"
 	"github.com/gorilla/mux"
-	"gopkg.in/mgo.v2/bson"
 	"html"
 	"net/http"
 )
@@ -30,12 +29,9 @@ func main() {
 	config, err := config.LoadEnv()
 	helpers.CheckAndLogError(err, "panic")
 	fmt.Printf("Welcome to %s %s\n", config.AppName, config.AppVersion)
-	quoteModel := models.Quote{
-		Id:     bson.NewObjectId(),
-		Author: "Georgi Zhivankin",
-		Quote:  "This is one nice quote.",
-	}
-	savedQuote := repositories.SaveQuote(quoteModel)
+	quote := quotes.GetRandomQuote()
+
+	savedQuote := repositories.SaveQuote(quote)
 	if savedQuote == true {
 		fmt.Println("Quote successfully saved into the database.")
 	}

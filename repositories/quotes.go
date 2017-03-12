@@ -31,7 +31,7 @@ func FindById(quoteId bson.ObjectId, collectionName string) models.Quote {
 	return result
 }
 
-func SaveQuote(quote models.Quote) bool {
+func SaveQuote(quote *models.Quote) bool {
 	config, err := config.LoadEnv()
 	helpers.CheckAndLogError(err, "panic")
 	session := GetSession()
