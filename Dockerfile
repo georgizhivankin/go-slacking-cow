@@ -1,4 +1,4 @@
-FROM golang:1.8-alpine
+FROM golang:1.9-alpine
 
 # Set apps home directory.
 ENV APP_DIR /go/src/github.com/georgizhivankin/go-slacking-cow
@@ -14,12 +14,14 @@ WORKDIR $APP_DIR
 
 # Build the go binary
 RUN set -ex \
+    && apk update \
+    && apk upgrade \
     && apk add --no-cache --update --virtual .build-deps curl git build-base \
     && curl https://glide.sh/get | sh \
+    && apk add git \
     && apk add make \
     && make \
-    
-    # Clean up
+        # Clean up
     && apk del .build-deps \
     && rm -rf /var/cache/apk/*
 
